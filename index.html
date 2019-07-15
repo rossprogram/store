@@ -78,7 +78,7 @@
     var color = e.options[e.selectedIndex].value;        
     
     stripe.redirectToCheckout({
-      items: [{plan: 'shirt_' + size + '_' + ink + '_' + color, quantity: 1}],
+      items: [{sku: 'shirt_' + size + '_' + ink + '_' + color, quantity: 1}],
 
       successUrl: window.location.protocol + '//rossprogram.org/success',
       cancelUrl: window.location.protocol + '//rossprogram.org/canceled',
