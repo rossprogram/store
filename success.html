@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ross Program Store</title>
+  <script src="https://js.stripe.com/v3"></script>  
+</head>
+<body>
+
+  Thank you for ordering a Ross Program t-shirt.  We'll deliver the t-shirt to you at the Program.
+
+  Would you like another t-shirt?
+  
+<div id="error-message"></div>
+
+<select id="size">
+  <option value="small">Small</option>
+  <option value="medium">Medium</option>
+  <option value="large">Large</option>
+  <option value="x-large">X-Large</option>
+  <option value="xx-large">2X-Large</option>
+  <option value="xxx-large">3X-Large</option>
+</select>
+
+<select id="ink">
+  <option value="black-ink">Black ink</option>
+  <option value="white-ink">White ink</option>
+</select>
+
+<select id="color">
+  <option value="aqua">aqua</option>
+  <option value="army">army</option>
+  <option value="ash">ash</option>
+  <option value="asphalt">asphalt</option>
+  <option value="baby-blue">baby blue</option>
+  <option value="black">black</option>
+  <option value="cranberry">cranberry</option>
+  <option value="creme">creme</option>
+  <option value="eggplant">eggplant</option>
+  <option value="forest">forest</option>
+  <option value="fuchsia">fuchsia</option>
+  <option value="gold">gold</option>
+  <option value="grass">grass</option>
+  <option value="heather">heather</option>
+  <option value="kelly">kelly</option>
+  <option value="lemon">lemon</option>
+  <option value="light-blue">light blue</option>
+  <option value="light-pink">light pink</option>
+  <option value="lime">lime</option>
+  <option value="mint">mint</option>
+  <option value="navy">navy</option>
+  <option value="olive">olive</option>
+  <option value="orange">orange</option>
+  <option value="pink">pink</option>
+  <option value="purple">purple</option>
+  <option value="red">red</option>
+  <option value="royal">royal</option>
+  <option value="silver">silver</option>
+  <option value="slate">slate</option>
+  <option value="sunshine">sunshine</option>
+  <option value="teal">teal</option>
+  <option value="turquoise">turquoise</option>
+  <option value="white">white</option>
+</select>
+
+<button id="checkout" role="link">
+  Checkout
+</button>
+
+<script>
+  var stripe = Stripe('pk_live_EVv0HE4EnEnGBfjY2iBzPnuS003Q0UNubO');
+
+  var checkoutButton = document.getElementById('checkout');
+  checkoutButton.addEventListener('click', function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+
+    var e = document.getElementById("size");
+    var size = e.options[e.selectedIndex].value;
+    var e = document.getElementById("ink");
+    var ink = e.options[e.selectedIndex].value;
+    var e = document.getElementById("color");
+    var color = e.options[e.selectedIndex].value;        
+    
+    stripe.redirectToCheckout({
+      items: [{sku: 'shirt_' + size + '_' + ink + '_' + color, quantity: 1}],
+
+      successUrl: window.location.protocol + '//rossprogram.org/store/success.html',
+      cancelUrl: window.location.protocol + '//rossprogram.org/store/index.html',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+</script>
+</body>
+</html>
