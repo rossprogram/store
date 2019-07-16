@@ -8,6 +8,9 @@
 
 <div id="error-message"></div>
 
+The 2019 Ross Program Store is now closed.  Please come back next year
+to purchase more t-shirts with quadratic reciprocity.
+
 <select id="size">
   <option value="small">Small</option>
   <option value="medium">Medium</option>
@@ -80,8 +83,8 @@
     stripe.redirectToCheckout({
       items: [{sku: 'shirt_' + size + '_' + ink + '_' + color, quantity: 1}],
 
-      successUrl: window.location.protocol + '//rossprogram.org/success',
-      cancelUrl: window.location.protocol + '//rossprogram.org/canceled',
+      successUrl: 'https://rossprogram.org/store/success.html',
+      cancelUrl: 'https://rossprogram.org/store/index.html'
     })
     .then(function (result) {
       if (result.error) {
